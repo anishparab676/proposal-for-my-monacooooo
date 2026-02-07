@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        /* Prevents scrolling while chasing the button */
+        html, body {
+            overflow: hidden;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #ffeef0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 2rem;
+            padding: 20px;
+        }
+
+        .btn-container {
+            position: relative;
+            width: 100vw;
+            height: 50vh;
+        }
+
+        button {
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.1s;
+            touch-action: none; /* Prevents zooming/scrolling on tap */
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            position: absolute;
+            left: 50%;
+            top: 20%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        #noBtn {
+            background-color: #6c757d;
+            color: white;
+            position: absolute;
+            left: 50%;
+            top: 60%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+        }
+
+        .celebration-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #ff4d6d;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mainContent">
+        <h1>Will you be my Valentine? 💖</h1>
+        <div class="btn-container">
+            <button id="yesBtn" onclick="celebrate()">YES</button>
+            <button id="noBtn" onmouseover="moveButton()" ontouchstart="moveButton()">NO</button>
+        </div>
+    </div>
+
+    <div id="celebration" class="celebration-screen">
+        <h1>YAY! 🥰🎉</h1>
+        <p style="font-size: 1.5rem;">See you on Feb 14th! 🌹</p>
+    </div>
+
+    <script>
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            const padding = 50; // Keep it away from screen edges
+
+            // Calculate random coordinates
+            // we subtract padding/button size so it doesn't go off-screen
+            const maxX = window.innerWidth - btn.offsetWidth - padding;
+            const maxY = window.innerHeight - btn.offsetHeight - padding;
+
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+            // Apply new position
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+            
+            // Remove the centered transform once it starts moving
+            btn.style.transform = 'none';
+        }
+
+        function celebrate() {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('celebration').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
+
